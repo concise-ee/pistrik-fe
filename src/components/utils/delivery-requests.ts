@@ -1,21 +1,14 @@
-import { toast } from 'react-toastify';
 import { Address, AddressSearchResult, CompanySearchResult, DeliveryNote } from './types';
 import { baseRequest } from './base-request';
 import { ARIREGISTER_BASE_URL, INADDRESS_BASE_URL } from '../configs/url-config';
 
-export const fetchSearchByAddress = async (
-  query: string,
-  ehakCode?: string
-): Promise<AddressSearchResult | undefined> => {
+export const fetchSearchByAddress = async (query: string): Promise<AddressSearchResult | undefined> => {
   try {
     if (!query.length) return;
 
     const { data } = await baseRequest({
       method: 'GET',
-      path: `${INADDRESS_BASE_URL}gazetteer?address=${query}&features=KATASTRIYKSUS${
-        ehakCode ? `&ehak=${ehakCode}` : ''
-      }
-`,
+      path: `${INADDRESS_BASE_URL}gazetteer?address=${query}`,
       withCredentials: false,
     });
     return data;
